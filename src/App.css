@@ -1,4 +1,11 @@
 body {
   font-size: calc(10px + 2vmin);
   padding: 0 2em;
-} 
+}
+.productLine {
+  display: flex;
+  flex-direction: row;
+}
+.productLine div {
+  flex: 1;
+}
