@@ -3,39 +3,32 @@ import './App.css';
 
 const PRODUCTS_DATA = [
     {
-        type: "drank",
+        name: "drank",
         products: [
-            {name: "cola", price: "2€"},
-            {name: "water", price: "2€"},
-            {name: "bier", price: "2€"},
-            {name: "wijn", price: "4€"}
+            {name: "cola", price: 2},
+            {name: "water", price: 2},
+            {name: "bier", price: 2},
+            {name: "wijn", price: 4}
         ],
     },
     {
-        type: "eten",
+        name: "eten",
         products: [
-            {name: "chips", price: "1€"},
-            {name: "olijven", price: "2€"},
-            {name: "kaas", price: "4€"},
-            {name: "salami", price: "3€"},
-            {name: "hamburger", price: "4€"},
-            {name: "pizza", price: "4€"}
+            {name: "chips", price: 1},
+            {name: "olijven", price: 2},
+            {name: "kaas", price: 4},
+            {name: "salami", price: 3},
+            {name: "hamburger", price: 4},
+            {name: "pizza", price: 4}
         ]
     }
 ];
 
-function CategoryLine(props) {
-    const {category} = props;
-    return <div className="CategoryLine">
-        <div><strong>{category.type}</strong></div>
-    </div>;
-}
-
 function ProductLine(props) {
     const {product} = props;
-    return <div className="ProductLine">
+    return <div className="productLine">
         <div>{product.name}</div>
-        <div>{product.price}</div>
+        <div>{product.price}&euro;</div>
     </div>;
 }
 
@@ -43,8 +36,15 @@ function App() {
     return (
         <div>
             <h1>Menu</h1>
-            {PRODUCTS_DATA.map((p) =>
-                <CategoryLine key={p.type} category={p}/>)}
+            <hr/>
+            {
+                PRODUCTS_DATA.map((c) =>
+                    <div key={c.name}>
+                        <h2>{c.name}</h2>
+                        {c.products.map((p) => <ProductLine key={p.name} product={p}/>)}
+                    </div>
+                )
+            }
         </div>
     );
 }
