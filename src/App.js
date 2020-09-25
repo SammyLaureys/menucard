@@ -7,7 +7,7 @@ const PRODUCTS_DATA = [
         products: [
             {name: "cola", price: 2},
             {name: "water", price: 2},
-            {name: "bier", price: 2, size: 25},
+            {name: "bier", price: 2, size: "*25cl"},
             {name: "wijn", price: 4}
         ],
     },
@@ -39,9 +39,8 @@ function ProductLine(props) {
     const {product} = props;
     return <div>
         <div className="ProductLine">
-            <div>{product.name}</div>
+            <div>{product.name}<span className="productSize">{product.size}</span></div>
             <div>{product.price}&euro;</div>
-            <div className="productSize">{product.size}</div>
         </div>
         <div className="note productNote">{product.note}</div>
     </div>
