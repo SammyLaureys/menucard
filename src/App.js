@@ -24,9 +24,18 @@ const PRODUCTS_DATA = [
     }
 ];
 
+function Category(props) {
+    const {category} = props;
+    return <div>
+        <h2>{category.name}</h2>
+        {category.products.map((p) => <ProductLine key={p.name} product={p}/>)}
+    </div>
+
+}
+
 function ProductLine(props) {
     const {product} = props;
-    return <div className="productLine">
+    return <div className="ProductLine">
         <div>{product.name}</div>
         <div>{product.price}&euro;</div>
     </div>;
@@ -38,13 +47,12 @@ function App() {
             <h1>Menu</h1>
             <hr/>
             {
-                PRODUCTS_DATA.map((c) =>
-                    <div key={c.name}>
-                        <h2>{c.name}</h2>
-                        {c.products.map((p) => <ProductLine key={p.name} product={p}/>)}
-                    </div>
+                PRODUCTS_DATA.map( (c) =>
+                    <Category key={c.name} category={c}/>
                 )
+
             }
+
         </div>
     );
 }

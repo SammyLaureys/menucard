@@ -2,10 +2,10 @@ body {
   font-size: calc(10px + 2vmin);
   padding: 0 2em;
 }
-.productLine {
+.ProductLine {
   display: flex;
   flex-direction: row;
 }
-.productLine div {
+.ProductLine div {
   flex: 1;
 }
