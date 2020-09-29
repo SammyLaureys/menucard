@@ -1,8 +1,8 @@
 {
   "name": "menucard",
+  "homepage": "https://SammyLaureys.github.io/menucard",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://SammyLaureys.github.io/menucard",
   "dependencies": {
     "@emotion/core": "^10.0.35",
     "@emotion/styled": "^10.0.27",

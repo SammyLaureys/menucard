@@ -1,11 +1,15 @@
 import React from "react";
-import {ProductLine} from "./ProductLine";
+import {Note} from "./note";
+
+function SubCategoryNote(props) {
+    return <Note note={props.note} className={"categoryNote"}/>;
+}
 
 export function SubCategory(props) {
     const {subcategory} = props;
     return <div>
         <h2>{subcategory.name}</h2>
-        <p className="note">{subcategory.note}</p>
-        {subcategory.products.map((p) => <ProductLine key={p.id} product={p}/>)}
-    </div>
+        <SubCategoryNote note={subcategory.note}/>
+        {props.children}
+    </div>;
 }
