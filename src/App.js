@@ -7,7 +7,6 @@ function App() {
     return (
         <div>
             <h1>Menu</h1>
-            <hr/>
             {
                 PRODUCTS_DATA.map((c) =>
                     <Category key={c.name} category={c}/>)
@@ -15,5 +14,4 @@ function App() {
         </div>
     );
 }
-
 export default App;
