@@ -1,10 +1,11 @@
 import React from 'react';
+import 'normalize.css';
+import './App.css';
 import {Category} from "./components/category";
 import {SubCategory} from "./components/subcategory";
 import {ProductLine} from "./components/productline";
 import {PRODUCTS_DATA} from "./data/products_data";
 import {Navigation} from "./components/navigation";
-import './App.css';
 import styled from "@emotion/styled";
 
 const StyledContainer = styled.div`
