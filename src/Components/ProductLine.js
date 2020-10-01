@@ -30,7 +30,7 @@ function ProductNote(props) {
 export function ProductLine(props) {
     const {product, isFavorite} = props;
     return <>
-        <StyledProductLine isFavorite={isFavorite(product)}>
+        <StyledProductLine isFavorite={isFavorite}>
             <div>
                 {product.name}
                 {product.size && <StyledProductSize className="productSize">  • {product.size}CL</StyledProductSize>}
