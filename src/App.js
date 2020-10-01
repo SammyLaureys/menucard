@@ -20,7 +20,12 @@ const StyledH1 = styled.h1`
 `;
 
 function App() {
-    const favorites = ['cola','bier groot','hamburger','pizza'];
+    const favorites = [
+        PRODUCTS_DATA[0].subcategories[1].products[1],
+        PRODUCTS_DATA[0].subcategories[0].products[0],
+        PRODUCTS_DATA[1].subcategories[1].products[0],
+        PRODUCTS_DATA[1].subcategories[1].products[1]
+    ];
     function isFavorite(product){
         if(favorites.includes(product)){
             return true;
