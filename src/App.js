@@ -12,6 +12,7 @@ const StyledContainer = styled.div`
   margin-left: 3vw;
   margin-right: 2vw;
   padding-top: 3%;
+  padding-bottom: 3%;
 `;
 
 const StyledH1 = styled.h1`
@@ -19,6 +20,15 @@ const StyledH1 = styled.h1`
 `;
 
 function App() {
+    const favorites = ['cola','bier groot','hamburger','pizza'];
+    function isFavorite(product){
+        if(favorites.includes(product)){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
     return (
         <div>
             <Navigation/>
@@ -29,7 +39,7 @@ function App() {
                         {c.subcategories.map((s) =>
                             <SubCategory key={s.name} subcategory={s}>
                                 {s.products.map((p) =>
-                                    <ProductLine key={p.id} product={p}/>)}
+                                    <ProductLine isFavorite={isFavorite(p)} key={p.id} product={p}/>)}
                             </SubCategory>)}
                     </Category>)}
             </StyledContainer>
