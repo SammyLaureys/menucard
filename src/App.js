@@ -22,12 +22,20 @@ const StyledH1 = styled.h1`
 function App() {
     const [isOpen, setIsOpen] = useState(false);
     const [counter, setCounter] = useState(0);
-    const favorites = [
-        PRODUCTS_DATA[0].subcategories[1].products[1],
-        PRODUCTS_DATA[0].subcategories[0].products[0],
-        PRODUCTS_DATA[1].subcategories[1].products[0],
-        PRODUCTS_DATA[1].subcategories[1].products[1]
-    ];
+    const [favorites, setFavorites] = useState([]);
+    let newFavorites = [];
+    function ToggleProductIsFavorite(product){
+        if(favorites.includes(product)){
+            newFavorites = favorites.filter(favorites => favorites !== product);
+            setFavorites(newFavorites);
+            return newFavorites;
+        }
+        else{
+            newFavorites = [...favorites, product];
+            setFavorites(newFavorites);
+            return newFavorites;
+        }
+    }
     function isFavorite(product){
         if(favorites.includes(product)){
             return true;
@@ -54,6 +62,7 @@ function App() {
                 <button onClick={() => setCounter(counter+1)}>increment</button>
                 <button onClick={() => setCounter(counter-1)}>decrement</button>
                 <div>{counter}</div>
+                <button onClick={() => ToggleProductIsFavorite([PRODUCTS_DATA[0].subcategories[0].products[0]])}>favorites</button>
             </StyledContainer>
         </div>
     )
