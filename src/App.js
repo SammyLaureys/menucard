@@ -26,14 +26,14 @@ function App() {
     let newFavorites = [];
     function ToggleProductIsFavorite(product){
         if(favorites.includes(product)){
-            newFavorites = favorites.filter(favorites => favorites !== product);
+            newFavorites = favorites.filter(favorites => favorites.id !== product.id);
             setFavorites(newFavorites);
-            return newFavorites;
+            return favorites;
         }
         else{
             newFavorites = [...favorites, product];
             setFavorites(newFavorites);
-            return newFavorites;
+            return favorites;
         }
     }
     function isFavorite(product){
@@ -49,6 +49,7 @@ function App() {
             <Navigation/>
             <StyledContainer>
                 <StyledH1>Menu</StyledH1>
+                <button onClick={() => ToggleProductIsFavorite([PRODUCTS_DATA[0].subcategories[0].products[0]])}>favorite</button>
                 {PRODUCTS_DATA.map((c) =>
                     <Category key={c.name} category={c}>
                         {c.subcategories.map((s) =>
@@ -62,7 +63,6 @@ function App() {
                 <button onClick={() => setCounter(counter+1)}>increment</button>
                 <button onClick={() => setCounter(counter-1)}>decrement</button>
                 <div>{counter}</div>
-                <button onClick={() => ToggleProductIsFavorite([PRODUCTS_DATA[0].subcategories[0].products[0]])}>favorites</button>
             </StyledContainer>
         </div>
     )
