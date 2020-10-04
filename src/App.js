@@ -7,6 +7,7 @@ import {ProductLine} from "./components/productline";
 import {PRODUCTS_DATA} from "./data/products_data";
 import {Navigation} from "./components/navigation";
 import styled from "@emotion/styled";
+import {TestStuff} from "./components/testStuff";
 
 const StyledContainer = styled.div`
   margin-left: 3vw;
@@ -20,14 +21,17 @@ const StyledH1 = styled.h1`
 `;
 
 function App() {
-    const [isOpen, setIsOpen] = useState(false);
-    const [counter, setCounter] = useState(0);
-    const favorites = [
-        PRODUCTS_DATA[0].subcategories[1].products[1],
-        PRODUCTS_DATA[0].subcategories[0].products[0],
-        PRODUCTS_DATA[1].subcategories[1].products[0],
-        PRODUCTS_DATA[1].subcategories[1].products[1]
-    ];
+    const [favorites, setFavorites] = useState([]);
+    // let newFavorites = [];
+    /*function toggleProductIsFavorite(product){
+        if(favorites.includes(product)){
+            newFavorites = favorites.filter(product => favorites.includes(product));
+        }
+        else{
+            newFavorites = [...favorites, product]
+        }
+        return newFavorites;
+    }*/
     function isFavorite(product){
         if(favorites.includes(product)){
             return true;
@@ -41,6 +45,8 @@ function App() {
             <Navigation/>
             <StyledContainer>
                 <StyledH1>Menu</StyledH1>
+                <button onClick={() => setFavorites([PRODUCTS_DATA[0].subcategories[0].products[0]])}>favorite</button>
+                {/*<button onClick={() => toggleProductIsFavorite([PRODUCTS_DATA[0].subcategories[0].products[0]])}>favorite2</button>*/}
                 {PRODUCTS_DATA.map((c) =>
                     <Category key={c.name} category={c}>
                         {c.subcategories.map((s) =>
@@ -49,12 +55,8 @@ function App() {
                                     <ProductLine isFavorite={isFavorite(p)} key={p.id} product={p}/>)}
                             </SubCategory>)}
                     </Category>)}
-                    <button onClick={() => setIsOpen(!isOpen)}>click</button>
-                <div>{isOpen ? "open" : "toe"}</div>
-                <button onClick={() => setCounter(counter+1)}>increment</button>
-                <button onClick={() => setCounter(counter-1)}>decrement</button>
-                <div>{counter}</div>
             </StyledContainer>
+            <TestStuff/>
         </div>
     )
 }
