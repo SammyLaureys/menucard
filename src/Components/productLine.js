@@ -30,7 +30,7 @@ const StyledProductPrice = styled.div`
     text-align: right;
 `;
 
-export function ProductLine(props) {
+export function Productline(props) {
     const {product, isFavorite, toggleProductIsFavorite} = props;
     return <>
         <StyledProductLine onClick={toggleProductIsFavorite}>

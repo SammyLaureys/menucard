@@ -4,8 +4,8 @@ import 'normalize.css';
 import './App.css';
 import {Navigation} from "./components/navigation";
 import {Category} from "./components/category";
-import {SubCategory} from "./components/subcategory";
-import {ProductLine} from "./components/productline";
+import {Subcategory} from "./components/subcategory";
+import {Productline} from "./components/productline";
 import {PRODUCTS_DATA} from "./data/products_data";
 
 const StyledOuterDiv = styled.div`
@@ -66,11 +66,11 @@ function App() {
             {PRODUCTS_DATA.map((c) =>
                 <Category key={c.name} category={c}>
                     {c.subcategories.map((s) =>
-                        <SubCategory key={s.name} subcategory={s}>
+                        <Subcategory key={s.name} subcategory={s}>
                             {s.products.map((p) =>
-                                <ProductLine key={p.id} product={p} isFavorite={isFavorite(p)}
+                                <Productline key={p.id} product={p} isFavorite={isFavorite(p)}
                                              toggleProductIsFavorite={() => toggleProductIsFavorite(p)}/>)}
-                        </SubCategory>)}
+                        </Subcategory>)}
                 </Category>)}
         </StyledOuterDiv>
     )
