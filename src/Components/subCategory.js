@@ -1,15 +1,17 @@
 import React from "react";
 import {Note} from "./note";
+import styled from "@emotion/styled";
 
-function SubCategoryNote(props) {
-    return <Note note={props.note} className={"categoryNote"}/>;
-}
+const StyledSubCategoryNote = styled(Note)`
+  padding: 0 0 0.5em 0;
+`;
+
 
 export function SubCategory(props) {
     const {subcategory} = props;
     return <div>
         <h2>{subcategory.name}</h2>
-        <SubCategoryNote note={subcategory.note}/>
+        <StyledSubCategoryNote note={subcategory.note}/>
         {props.children}
     </div>;
 }

@@ -2,41 +2,44 @@ import React from "react";
 import {Note} from "./note";
 import styled from "@emotion/styled";
 
-const StyledProductLine = styled.div`
-  display: flex;
-  flex-direction: row;
-  color: ${(props) => props.isFavorite ? "red" : "black"};
-  & div{
-    flex: 1;
-  }
-`;
-
 const StyledProductNote = styled(Note)`
   padding: 0 1.5em 0.5em 0;
 `;
 
-const StyledProductSize = styled.span`
+const StyledProductLine = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin: 0 0 .3em 0;
+  cursor: pointer;
+  & div {
+    flex: 1;
+  }
+`;
+
+const StyledProductName = styled.div`
+    flex: 6;
+    color: ${(props) => props.isFavorite && "red"};
+`;
+
+const StyledProductDescription = styled.span`
   font-size: 0.6em;
 `;
 
 const StyledProductPrice = styled.div`
-  text-align: right;
+    flex: 2;
+    text-align: right;
 `;
 
-function ProductNote(props) {
-    return <StyledProductNote note={props.note} className={"productNote"}/>;
-}
-
 export function ProductLine(props) {
-    const {product, isFavorite} = props;
+    const {product, isFavorite, toggleProductIsFavorite} = props;
     return <>
-        <StyledProductLine isFavorite={isFavorite}>
-            <div>
+        <StyledProductLine onClick={toggleProductIsFavorite}>
+            <StyledProductName isFavorite={isFavorite}>
                 {product.name}
-                {product.size && <StyledProductSize className="productSize">  • {product.size}CL</StyledProductSize>}
-            </div>
-            <StyledProductPrice>{product.price.toFixed(2)}&euro;</StyledProductPrice>
+                {product.size && <StyledProductDescription> • {product.size}CL</StyledProductDescription>}
+            </StyledProductName>
+            <StyledProductPrice>{product.price.toFixed(2)} &euro;</StyledProductPrice>
         </StyledProductLine>
-        <ProductNote note={product.note}/>
+        <StyledProductNote note={product.note}/>
     </>;
 }
