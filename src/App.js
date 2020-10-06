@@ -1,63 +1,78 @@
 import React, {useState} from 'react';
+import styled from "@emotion/styled";
 import 'normalize.css';
 import './App.css';
-import {Category} from "./components/category";
-import {SubCategory} from "./components/subCategory";
-import {ProductLine} from "./components/productLine";
-import {PRODUCTS_DATA} from "./data/products_data";
 import {Navigation} from "./components/navigation";
-import styled from "@emotion/styled";
-import {TestStuff} from "./components/testStuff";
+import {Category} from "./components/category";
+import {SubCategory} from "./components/subcategory";
+import {ProductLine} from "./components/productline";
+import {PRODUCTS_DATA} from "./data/products_data";
 
-const StyledContainer = styled.div`
-  margin-left: 3vw;
-  margin-right: 2vw;
-  padding-top: 3%;
-  padding-bottom: 3%;
+const StyledOuterDiv = styled.div`
+  padding: 0 3vw 0 2vw;
+  padding-top: 80px;
 `;
 
-const StyledH1 = styled.h1`
-  padding-top: 20px;
+const StyledTestStuff = styled.div`
+  background: pink;
+  padding: 10px;
 `;
+
+function TestStuff(props) {
+    const [isTestStuffOpen, setIsTestSTuffOpen] = useState(true);
+    const [isOpen, setIsOpen] = useState(false);
+    const [counter, setCounter] = useState(0);
+    const {toggleProductIsFavorite} = props;
+
+    return <StyledTestStuff>
+        {
+            isTestStuffOpen && <>
+                <button onClick={() => setIsOpen(!isOpen)}>open-toe</button>
+                <div>{isOpen ? "open" : "toe"}</div>
+                <button onClick={() => setCounter(counter + 1)}>increment</button>
+                <button onClick={() => setCounter(counter - 1)}>decrement</button>
+                <div>{counter}</div>
+                <button onClick={toggleProductIsFavorite}>favorite</button>
+            </>
+        }
+        <div>
+            <button
+                onClick={() => setIsTestSTuffOpen(!isTestStuffOpen)}>{isTestStuffOpen ? "close" : "TestStuff"}</button>
+        </div>
+    </StyledTestStuff>;
+}
 
 function App() {
     const [favorites, setFavorites] = useState([]);
-    // let newFavorites = [];
-    /*function toggleProductIsFavorite(product){
-        if(favorites.includes(product)){
-            newFavorites = favorites.filter(product => favorites.includes(product));
-        }
-        else{
-            newFavorites = [...favorites, product]
-        }
-        return newFavorites;
-    }*/
-    function isFavorite(product){
-        if(favorites.includes(product)){
-            return true;
-        }
-        else{
-            return false;
-        }
+
+    function isFavorite(product) {
+        return favorites.find((p) => product.id === p.id);
     }
+
+    function toggleProductIsFavorite(product) {
+        let newFavorites;
+        if (isFavorite(product))
+            newFavorites = favorites.filter((p) => product.id !== p.id);
+        else
+            newFavorites = [...favorites, product];
+        setFavorites(newFavorites);
+    }
+
     return (
-        <div>
+        <StyledOuterDiv>
             <Navigation/>
-            <StyledContainer>
-                <StyledH1>Menu</StyledH1>
-                <button onClick={() => setFavorites([PRODUCTS_DATA[0].subcategories[0].products[0]])}>favorite</button>
-                {/*<button onClick={() => toggleProductIsFavorite([PRODUCTS_DATA[0].subcategories[0].products[0]])}>favorite2</button>*/}
-                {PRODUCTS_DATA.map((c) =>
-                    <Category key={c.name} category={c}>
-                        {c.subcategories.map((s) =>
-                            <SubCategory key={s.name} subcategory={s}>
-                                {s.products.map((p) =>
-                                    <ProductLine isFavorite={isFavorite(p)} key={p.id} product={p}/>)}
-                            </SubCategory>)}
-                    </Category>)}
-            </StyledContainer>
-            <TestStuff/>
-        </div>
+            <TestStuff
+                toggleProductIsFavorite={() => toggleProductIsFavorite(PRODUCTS_DATA[0].subcategories[0].products[0])}/>
+            {PRODUCTS_DATA.map((c) =>
+                <Category key={c.name} category={c}>
+                    {c.subcategories.map((s) =>
+                        <SubCategory key={s.name} subcategory={s}>
+                            {s.products.map((p) =>
+                                <ProductLine key={p.id} product={p} isFavorite={isFavorite(p)}
+                                             toggleProductIsFavorite={() => toggleProductIsFavorite(p)}/>)}
+                        </SubCategory>)}
+                </Category>)}
+        </StyledOuterDiv>
     )
 }
 
