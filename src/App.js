@@ -10,39 +10,13 @@ import {Productline} from "./components/productline";
 import {PRODUCTS_DATA} from "./data/products_data";
 
 const StyledOuterDiv = styled.div`
-  padding: 1% 3vw 3% 2vw;
+  padding: 0 3vw 3% 2vw;
 `;
 
-const StyledTestStuff = styled.div`
-  background: grey;
-  padding: 10px;
-  margin-top: 3%;
-  text-align: center;
+const StyledOverlay = styled.div`
+  background: transparent;
+  
 `;
-
-function TestStuff(props) {
-    const [isTestStuffOpen, setIsTestSTuffOpen] = useState(true);
-    const [isOpen, setIsOpen] = useState(false);
-    const [counter, setCounter] = useState(0);
-    const {toggleProductIsFavorite} = props;
-
-    return <StyledTestStuff>
-        {
-            isTestStuffOpen && <>
-                <button onClick={() => setIsOpen(!isOpen)}>open-toe</button>
-                <div>{isOpen ? "open" : "toe"}</div>
-                <button onClick={() => setCounter(counter + 1)}>increment</button>
-                <button onClick={() => setCounter(counter - 1)}>decrement</button>
-                <div>{counter}</div>
-                <button onClick={toggleProductIsFavorite}>favorite</button>
-            </>
-        }
-        <div>
-            <button
-                onClick={() => setIsTestSTuffOpen(!isTestStuffOpen)}>{isTestStuffOpen ? "close" : "TestStuff"}</button>
-        </div>
-    </StyledTestStuff>;
-}
 
 function App() {
     const [favorites, setFavorites] = useState([]);
@@ -71,15 +45,10 @@ function App() {
     }
 
     return (
-        <div>
+        <StyledOverlay>
             <Navigation/>
-            <TestStuff
-                toggleProductIsFavorite={() => toggleProductIsFavorite(PRODUCTS_DATA[0].subcategories[0].products[0])}/>
+            <InfoBox children= {BoxChildren()}/>
             <StyledOuterDiv>
-
-                <InfoBox
-                    children= {BoxChildren()}/>
-
                 {PRODUCTS_DATA.map((c) =>
                     <Category key={c.name} category={c}>
                         {c.subcategories.map((s) =>
@@ -90,7 +59,7 @@ function App() {
                             </Subcategory>)}
                     </Category>)}
             </StyledOuterDiv>
-        </div>
+        </StyledOverlay>
     )
 }
 
