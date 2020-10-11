@@ -1,5 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
+import { FaBars } from "react-icons/fa";
+import '../../App.css';
 
 const StyledNavigation = styled.div`
     height: 64px;
@@ -25,7 +27,7 @@ const Link = styled.a`
 
 export function Navigation(setIsInfoBoxOpen) {
     return <StyledNavigation>
+        <FaBars/>
         <Link href="/">Menu</Link>
-
     </StyledNavigation>;
 }
