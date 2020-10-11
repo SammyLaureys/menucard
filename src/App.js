@@ -2,12 +2,14 @@ import React, {useState} from 'react';
 import styled from "@emotion/styled";
 import 'normalize.css';
 import './App.css';
-import {Navigation} from "./components/navigation";
-import {InfoBox} from "./components/infoBox";
-import {Category} from "./components/category";
-import {Subcategory} from "./components/subcategory";
-import {Productline} from "./components/productline";
+import {Navigation} from "./components/product/navigation";
+import {InfoBox} from "./components/ui/infoBox";
+import {Category} from "./components/product/category";
+import {Subcategory} from "./components/product/subcategory";
+import {Productline} from "./components/product/productline";
 import {PRODUCTS_DATA} from "./data/products_data";
+import {ThemeProvider} from "emotion-theming";
+import {theme} from "./theme";
 
 const StyledOuterDiv = styled.div`
   padding: 0 3vw 3% 2vw;
@@ -43,23 +45,24 @@ function App() {
                       <Productline key={p.id} product={p} toggleProductIsFavorite={() => toggleProductIsFavorite(p)}/>)
         }
     }
-
     return (
-        <StyledOverlay>
-            <Navigation/>
-            <InfoBox children= {BoxChildren()}/>
-            <StyledOuterDiv>
-                {PRODUCTS_DATA.map((c) =>
-                    <Category key={c.name} category={c}>
-                        {c.subcategories.map((s) =>
-                            <Subcategory key={s.name} subcategory={s}>
-                                {s.products.map((p) =>
-                                    <Productline key={p.id} product={p} isFavorite={isFavorite(p)}
-                                                 toggleProductIsFavorite={() => toggleProductIsFavorite(p)}/>)}
-                            </Subcategory>)}
-                    </Category>)}
-            </StyledOuterDiv>
-        </StyledOverlay>
+        <ThemeProvider theme={theme}>
+            <StyledOverlay>
+                <Navigation/>
+                <InfoBox children= {BoxChildren()}/>
+                <StyledOuterDiv>
+                    {PRODUCTS_DATA.map((c) =>
+                        <Category key={c.name} category={c}>
+                            {c.subcategories.map((s) =>
+                                <Subcategory key={s.name} subcategory={s}>
+                                    {s.products.map((p) =>
+                                        <Productline key={p.id} product={p} isFavorite={isFavorite(p)}
+                                                     toggleProductIsFavorite={() => toggleProductIsFavorite(p)}/>)}
+                                </Subcategory>)}
+                        </Category>)}
+                </StyledOuterDiv>
+            </StyledOverlay>
+        </ThemeProvider>
     )
 }
 

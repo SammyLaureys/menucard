@@ -12,9 +12,9 @@ export const PRODUCTS_DATA = [
             {
                 name: "alcohol",
                 products: [
-                    {id: "bier klein",name: "bier", price: 2, size: 25},
-                    {id: "bier groot",name: "bier", price: 2.4, size: 33},
-                    {id: "wijn",name: "wijn", price: 4}
+                    {id: "bier klein",name: "bier", price: 2, size: 25, percentage: "5%"},
+                    {id: "bier groot",name: "bier", price: 2.4, size: 33, percentage: "5%"},
+                    {id: "wijn",name: "wijn", price: 4, size: null, percentage: "14%"}
                 ],
             }]
     },

@@ -3,8 +3,8 @@ import styled from "@emotion/styled";
 
 const StyledNavigation = styled.div`
     height: 64px;
-    background-color: black;
-    color: white;
+    background-color: ${(props) => props.theme.colors.primaryDark};
+    color: ${(props) => props.theme.colors.primaryLight}
     justify-content: center;
     text-align: center;
     padding: 0.8em 0;
@@ -23,8 +23,9 @@ const Link = styled.a`
   }
 `;
 
-export function Navigation() {
+export function Navigation(setIsInfoBoxOpen) {
     return <StyledNavigation>
         <Link href="/">Menu</Link>
+
     </StyledNavigation>;
 }

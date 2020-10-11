@@ -36,7 +36,7 @@ export function Productline(props) {
         <StyledProductLine onClick={toggleProductIsFavorite}>
             <StyledProductName isFavorite={isFavorite}>
                 {product.name}
-                {product.size && <StyledProductDescription> • {product.size}CL</StyledProductDescription>}
+                {product.size && <StyledProductDescription> • {product.size}CL  {product.percentage}</StyledProductDescription>}
             </StyledProductName>
             <StyledProductPrice>{product.price.toFixed(2)} &euro;</StyledProductPrice>
         </StyledProductLine>
