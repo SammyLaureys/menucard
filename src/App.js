@@ -1,30 +1,22 @@
 import React, {useState} from 'react';
-import styled from "@emotion/styled";
 import 'normalize.css';
 import './App.css';
-import {Navigation} from "./components/product/navigation";
-import {InfoBox} from "./components/ui/infoBox";
-import {Category} from "./components/product/category";
-import {Subcategory} from "./components/product/subcategory";
-import {Productline} from "./components/product/productline";
-import {PRODUCTS_DATA} from "./data/products_data";
 import {ThemeProvider} from "emotion-theming";
 import {theme} from "./theme";
-
-const StyledOuterDiv = styled.div`
-  padding: 0 3vw 3% 2vw;
-`;
-
-const StyledOverlay = styled.div`
-  background: transparent;
-  
-`;
+import {Navigation} from "./components/navigation";
+import {PRODUCTS_DATA} from "./data/products_data";
+import {StyledOuterDiv} from "./components/ui/infobox";
+import {MenuCardPage} from "./components/menucardpage";
+import {FavoritesInfoBox} from "./components/favoritesinfobox";
+import {ProductInfoBox} from "./components/productinfobox";
 
 function App() {
     const [favorites, setFavorites] = useState([]);
+    const [isFavoritesInfoBoxOpen, setIsFavoritesInfoBoxOpen] = useState(false);
+    const [activeProduct, setActiveProduct] = useState();
 
     function isFavorite(product) {
-        return favorites.find((p) => product.id === p.id);
+        return product && favorites.find((p) => product.id === p.id);
     }
 
     function toggleProductIsFavorite(product) {
@@ -36,32 +28,20 @@ function App() {
         setFavorites(newFavorites);
     }
 
-    function BoxChildren() {
-        if (favorites.length === 0){
-            return "Je hebt nog geen favorieten.";
-        }
-          else{
-              return favorites.map((p) =>
-                      <Productline key={p.id} product={p} toggleProductIsFavorite={() => toggleProductIsFavorite(p)}/>)
-        }
-    }
     return (
         <ThemeProvider theme={theme}>
-            <StyledOverlay>
-                <Navigation/>
-                <InfoBox children= {BoxChildren()}/>
-                <StyledOuterDiv>
-                    {PRODUCTS_DATA.map((c) =>
-                        <Category key={c.name} category={c}>
-                            {c.subcategories.map((s) =>
-                                <Subcategory key={s.name} subcategory={s}>
-                                    {s.products.map((p) =>
-                                        <Productline key={p.id} product={p} isFavorite={isFavorite(p)}
-                                                     toggleProductIsFavorite={() => toggleProductIsFavorite(p)}/>)}
-                                </Subcategory>)}
-                        </Category>)}
-                </StyledOuterDiv>
-            </StyledOverlay>
+            <StyledOuterDiv>
+                <Navigation setIsFavoritesInfoBoxOpen={setIsFavoritesInfoBoxOpen} categories={PRODUCTS_DATA}/>
+                <FavoritesInfoBox favorites={favorites}
+                                  isFavoritesInfoBoxOpen={isFavoritesInfoBoxOpen}
+                                  setIsFavoritesInfoBoxOpen={setIsFavoritesInfoBoxOpen}
+                                  setActiveProduct={setActiveProduct}/>
+                <ProductInfoBox activeProduct={activeProduct} setActiveProduct={setActiveProduct}
+                                toggleProductIsFavorite={() => toggleProductIsFavorite(activeProduct)}
+                                isFavorite={isFavorite}/>
+                <MenuCardPage productsData={PRODUCTS_DATA} isFavorite={isFavorite}
+                              setActiveProduct={setActiveProduct}/>
+            </StyledOuterDiv>
         </ThemeProvider>
     )
 }

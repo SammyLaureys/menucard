@@ -2,7 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 
 const StyledNote = styled.div`
-  color: #a21212;
+  color: ${({theme}) => theme.colors.secondaryDark};
   font-size: smaller;
 `;
 
@@ -12,3 +12,4 @@ export function Note(props) {
     if (!note) return null;
     return <StyledNote className={className}>{note}</StyledNote>
 }
+

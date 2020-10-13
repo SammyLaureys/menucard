@@ -1,46 +1,47 @@
-import React, {useState} from "react";
 import styled from "@emotion/styled";
+import React from "react";
 
+export const StyledOuterDiv = styled.div`
+  padding: 0 3vw 0 2vw;
+  padding-top: 80px;
+`;
+const StyledOverlay = styled.div`
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(23, 23, 23, .04);
+  z-index: 10;
+`;
 const StyledInfoBox = styled.div`
- border-radius: 10px;
- box-shadow: 0 0 10px 2px gray;
- position: fixed;
- background-color: white;
- width: 100%;
- height: 100%;
- padding-left: 3%;
- padding-right: 3%;
- transition: transform .3s;
-`;
-const StyledButton = styled.button`
- margin-top: 8%;
- margin-left: 4%;
+    position: fixed;
+    background-color: ${({theme}) => theme.colors.primaryLight};
+    box-shadow: ${(props) => props.isInfoBoxOpen ? 'rgba(23, 23, 23, .4) 0 0 48px' : 'none'};
+    top: 120px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: .4em;
+    border-radius: 5px;
+    transform: translateY(${(props) => props.isInfoBoxOpen ? "0%" : "100%"});
+    transition: transform .3s ease-in-out;
+    z-index: 11;
 `;
 
+const CloseButton = styled.button`
+    position: absolute;
+    top: 0;
+    right: 0;
+    border: 0;
+    ${({theme}) => theme.hoverDark};
+`;
 export function InfoBox(props) {
-    const [isInfoBoxOpen, setIsInfoBoxOpen] = useState(false);
-    const styles1 = {
-        transform: `translateY(0%)`
-    };
-    const styles2 = {
-        transform: `translateY(100%)`
-    };
+    const {isInfoBoxOpen, closeInfoBox} = props;
+
     return <div>
-        <StyledButton onClick={() => setIsInfoBoxOpen(!isInfoBoxOpen)}>{isInfoBoxOpen ? "x" : "+"}</StyledButton>
-        <div>
-            {isInfoBoxOpen ?
-            <StyledInfoBox style={styles1}>
-                    <div>
-                        <h2>Je Favorieten</h2>
-                        {props.children}
-                    </div>
-            </StyledInfoBox>
-                : <StyledInfoBox style={styles2}>
-                    <div>
-                        <h2>Je Favorieten</h2>
-                        {props.children}
-                    </div>
-                </StyledInfoBox>}
-        </div>
+        {isInfoBoxOpen && <StyledOverlay onClick={closeInfoBox}/>}
+        {<StyledInfoBox isInfoBoxOpen={isInfoBoxOpen}>
+            {props.children}
+            <CloseButton onClick={closeInfoBox}>x</CloseButton>
+        </StyledInfoBox>
+        }
     </div>;
 }

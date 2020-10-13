@@ -7,7 +7,7 @@ const StyledSubCategoryNote = styled(Note)`
 `;
 
 
-export function Subcategory(props) {
+export function SubCategory(props) {
     const {subcategory} = props;
     return <div>
         <h2>{subcategory.name}</h2>
