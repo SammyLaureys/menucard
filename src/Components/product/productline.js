@@ -2,6 +2,7 @@ import React from "react";
 import {Note} from "./note";
 import styled from "@emotion/styled";
 import {MdFavorite} from "react-icons/md";
+import {useActiveProductContext} from "../../contexts/ActiveProductProvider";
 
 const StyledProductNote = styled(Note)`
   padding: 0 1.5em 0.5em 0;
