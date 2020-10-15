@@ -2,8 +2,9 @@ import React from "react";
 import styled from "@emotion/styled";
 import {InfoBox} from "./ui/infobox";
 import {ProductLine} from "./product/productline";
-import {MdFavorite, MdFavoriteBorder} from "react-icons/md";
+import {MdFavorite, MdFavoriteBorder, MdMessage} from "react-icons/md";
 import {StyledInfoBoxIconButton} from "./ui/button";
+import {useMessageContext} from "../contexts/MessageProvider";
 
 const ProductInfoBoxContent = styled.div`
   position:relative;  
@@ -36,6 +37,7 @@ const StyledButtonDiv = styled.div`
 export function ProductInfoBox(props) {
     const {activeProduct, setActiveProduct, isFavorite, toggleProductIsFavorite} = props;
     const isProductFavorite = isFavorite(activeProduct);
+    const {setMessage} = useMessageContext();
 
     return <InfoBox isInfoBoxOpen={activeProduct != null}
                     closeInfoBox={() => setActiveProduct(null)}>
@@ -48,6 +50,9 @@ export function ProductInfoBox(props) {
                 <StyledInfoBoxIconButton onClick={toggleProductIsFavorite}
                                          color={isProductFavorite && "favoriteRed"}>
                     {isProductFavorite ? <MdFavorite/> : <MdFavoriteBorder/>}
+                </StyledInfoBoxIconButton>
+                <StyledInfoBoxIconButton onClick={() => setMessage(`dit is een message over ${activeProduct.name}`)}>
+                    <MdMessage/>
                 </StyledInfoBoxIconButton>
             </StyledButtonDiv>
         </ProductInfoBoxContent>
