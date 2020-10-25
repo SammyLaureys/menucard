@@ -1,5 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
+import {Link} from "react-router-dom";
+import {HashLink} from "react-router-hash-link";
 import {MdFavorite} from "react-icons/md";
 import {StyledMenuIconButton} from "./ui/button";
 import {BurgerWithMenu} from "./ui/burgermenu";
@@ -21,10 +23,12 @@ const StyledNavigation = styled.div`
     justify-content: center;
 `;
 
-const StyledLink = styled.a`
-    text-decoration: none;
-    padding: .2em .5em;
-    ${({theme}) => theme.hoverLight};
+const StyledLink = styled.div`
+    a {
+      text-decoration: none;
+      padding: .2em .5em;
+      ${({theme}) => theme.hoverLight};
+   }
 `;
 const StyledCenterDiv = styled.div`
     flex: 1;
@@ -37,15 +41,20 @@ const StyledSideBarContent = styled.div`
 
 
 export function Navigation(props) {
-    const {setIsFavoritesInfoBoxOpen, categories} = props;
+    const {categories} = props;
     return <StyledNavigation>
         <BurgerWithMenu>
             {categories.map(c =>
                 <StyledSideBarContent key={c.name}>
-                    <StyledLink href={"#" + c.name}>{c.name}</StyledLink>
+                    <StyledLink> <HashLink to={`/#${c.name}`}>{c.name}</HashLink></StyledLink>
                 </StyledSideBarContent>)}
         </BurgerWithMenu>
-        <StyledCenterDiv><StyledLink href="/">Menu</StyledLink></StyledCenterDiv>
-        <StyledMenuIconButton onClick={() => setIsFavoritesInfoBoxOpen(true)}><MdFavorite/></StyledMenuIconButton>
+        <StyledCenterDiv>
+
+            <StyledLink href="/">
+                <Link to="/">Menu</Link>
+            </StyledLink>
+        </StyledCenterDiv>
+        <Link to="/favorites"><StyledMenuIconButton><MdFavorite/></StyledMenuIconButton></Link>
     </StyledNavigation>;
 }

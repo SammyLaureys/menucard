@@ -1,57 +1,51 @@
-import React, {useState} from 'react';
+import React from 'react';
+import {ThemeProvider} from "emotion-theming";
+import {HashRouter, Switch, Route} from "react-router-dom";
 import 'normalize.css';
 import './App.css';
-import {ThemeProvider} from "emotion-theming";
 import {theme} from "./theme";
 import {Navigation} from "./components/navigation";
 import {PRODUCTS_DATA} from "./data/products_data";
 import {StyledOuterDiv} from "./components/ui/infobox";
 import {MenuCardPage} from "./components/menucardpage";
-import {FavoritesInfoBox} from "./components/favoritesinfobox";
 import {ProductInfoBox} from "./components/productinfobox";
-import {ActiveProductProvider} from "./contexts/ActiveProductProvider";
-import {MessageProvider} from "./contexts/MessageProvider";
 import {Message} from "./components/ui/message";
+import {MessageProvider} from "./contexts/message_context";
+import {ActiveProductProvider} from "./contexts/activeproduct_context";
+import {FavoritesProvider} from "./contexts/favorites_context";
+import {FavoritesPage} from "./components/favoritespage";
+import {FLAT_PRODUCT_DATA} from "./utilities/flat_product_data";
 
-function App() {
-    const [favorites, setFavorites] = useState([]);
-    const [isFavoritesInfoBoxOpen, setIsFavoritesInfoBoxOpen] = useState(false);
-    const [activeProduct, setActiveProduct] = useState();
-
-    function isFavorite(product) {
-        return product && favorites.find((p) => product.id === p.id);
-    }
-
-    function toggleProductIsFavorite(product) {
-        let newFavorites;
-        if (isFavorite(product))
-            newFavorites = favorites.filter((p) => product.id !== p.id);
-        else
-            newFavorites = [...favorites, product];
-        setFavorites(newFavorites);
-    }
+function ProvidedApp() {
 
     return (
-        <ThemeProvider theme={theme}>
-            <MessageProvider>
-                <ActiveProductProvider>
-                    <StyledOuterDiv>
-                        <Navigation setIsFavoritesInfoBoxOpen={setIsFavoritesInfoBoxOpen} categories={PRODUCTS_DATA}/>
-                        <FavoritesInfoBox favorites={favorites}
-                                          isFavoritesInfoBoxOpen={isFavoritesInfoBoxOpen}
-                                          setIsFavoritesInfoBoxOpen={setIsFavoritesInfoBoxOpen}
-                                          setActiveProduct={setActiveProduct}/>
-                        <ProductInfoBox activeProduct={activeProduct} setActiveProduct={setActiveProduct}
-                                        toggleProductIsFavorite={() => toggleProductIsFavorite(activeProduct)}
-                                        isFavorite={isFavorite}/>
-                        <MenuCardPage productsData={PRODUCTS_DATA} isFavorite={isFavorite}
-                                      setActiveProduct={setActiveProduct}/>
-                                      <Message/>
-                    </StyledOuterDiv>
-                </ActiveProductProvider>
-            </MessageProvider>
-        </ThemeProvider>
+        <HashRouter basename="/">
+            <StyledOuterDiv>
+                <Navigation categories={PRODUCTS_DATA}/>
+                <Message/>
+                <ProductInfoBox flatProductList={FLAT_PRODUCT_DATA}/>
+                <Switch>
+                    <Route path="/favorites">
+                        <FavoritesPage/></Route>
+                    <Route path={["/", "menucard", "menu"]}>
+                        <MenuCardPage productsData={PRODUCTS_DATA}/></Route>
+                </Switch>
+            </StyledOuterDiv>
+        </HashRouter>
     )
 }
+
+function App() {
+    return <ThemeProvider theme={theme}>
+        <MessageProvider>
+            <FavoritesProvider>
+                <ActiveProductProvider>
+                    <ProvidedApp/>
+                </ActiveProductProvider>
+            </FavoritesProvider>
+        </MessageProvider>
+    </ThemeProvider>;
+}
+
 
 export default App;

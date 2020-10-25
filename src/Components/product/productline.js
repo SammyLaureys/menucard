@@ -2,7 +2,8 @@ import React from "react";
 import {Note} from "./note";
 import styled from "@emotion/styled";
 import {MdFavorite} from "react-icons/md";
-import {useActiveProductContext} from "../../contexts/ActiveProductProvider";
+import {useActiveProductContext} from "../../contexts/activeproduct_context";
+import {useFavoritesContext} from "../../contexts/favorites_context";
 
 const StyledProductNote = styled(Note)`
   padding: 0 1.5em 0.5em 0;
@@ -33,8 +34,8 @@ function ProductDescription(props) {
     const {product} = props;
     if (!product.size && !product.percentage) return null;
     const desc = " • "
-        + (product.size && product.size+"CL ")
-        + (product.percentage && product.percentage+"%");
+        + (product.size && product.size + "CL ")
+        + (product.percentage && product.percentage + "%");
     return <StyledProductDescription>{desc}</StyledProductDescription>
 }
 
@@ -47,16 +48,19 @@ const StyledProductIndicator = styled.div`
 
 `;
 
+/** @return {null} */
 export function ProductLine(props) {
-    const {product, isFavorite, setActiveProduct} = props;
+    const {setActiveProduct} = useActiveProductContext();
+    const {isFavorite} = useFavoritesContext();
+    const {product, isNotClickable, doNotShowFavorite} = props;
     return <>
-        <StyledProductLine onClick={setActiveProduct ? () => setActiveProduct(product) : undefined}>
+        <StyledProductLine onClick={isNotClickable ? undefined : () => setActiveProduct(product)}>
             <StyledProductName>
                 {product.name}
                 <ProductDescription product={product}/>
             </StyledProductName>
             <StyledProductPrice>{product.price.toFixed(2)} &euro;</StyledProductPrice>
-            <StyledProductIndicator>{isFavorite && <MdFavorite/>}</StyledProductIndicator>
+            <StyledProductIndicator>{!doNotShowFavorite && isFavorite(product) && <MdFavorite/>}</StyledProductIndicator>
         </StyledProductLine>
         <StyledProductNote note={product.note}/>
     </>;
