@@ -29,10 +29,10 @@ function ProvidedApp() {
                 <Switch>
                     <Route path="/favorites">
                         <FavoritesPage/></Route>
-                    <Route path={["/", "menucard", "menu"]}>
-                        <MenuCardPage productsData={PRODUCTS_DATA}/></Route>
                     <Route path={["/table/:tableNumberFromUrl"]}>
                         <TablePage/></Route>
+                    <Route path={["/", "menucard", "menu"]}>
+                        <MenuCardPage productsData={PRODUCTS_DATA}/></Route>
                 </Switch>
             </StyledOuterDiv>
         </HashRouter>
