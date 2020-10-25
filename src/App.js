@@ -16,6 +16,7 @@ import {FavoritesProvider} from "./contexts/favorites_context";
 import {FavoritesPage} from "./components/favoritespage";
 import {FLAT_PRODUCT_DATA} from "./utilities/flat_product_data";
 import {TablePage} from "./components/tablepage";
+import {STATUS_NEW} from "./services/firestore";
 
 function ProvidedApp() {
 
