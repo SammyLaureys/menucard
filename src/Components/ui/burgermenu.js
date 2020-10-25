@@ -83,7 +83,7 @@ function NavMenu(props) {
         </StyledNavMenu>
     )
 }
-//note: position has to be relative so that the InfoBox y-positioning works correctly
+//note: position has to be relative so that the Infobox y-positioning works correctly
 const StyledRelativeParent = styled.div`
     position: relative;
     padding: 0.2em;

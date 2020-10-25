@@ -59,7 +59,7 @@ const StyledNextButton = styled(StyledPrevNextButton)`
     right: 0;
 `;
 
-export function InfoBox(props) {
+export function Infobox(props) {
     const {isInfoBoxOpen, closeInfoBox, prevInfoBoxPage, nextInfoBoxPage} = props;
     const [goingToPrevPage, setGoingToPrevPage] = useState(false);
     const [goingToNextPage, setGoingToNextPage] = useState(false);
