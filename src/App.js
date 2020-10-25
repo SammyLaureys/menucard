@@ -6,7 +6,7 @@ import './App.css';
 import {theme} from "./theme";
 import {Navigation} from "./components/navigation";
 import {PRODUCTS_DATA} from "./data/products_data";
-import {StyledOuterDiv} from "./components/ui/infobox";
+import {StyledOuterDiv} from "./components/ui/infoBox";
 import {MenuCardPage} from "./components/menucardpage";
 import {ProductInfoBox} from "./components/productinfobox";
 import {Message} from "./components/ui/message";

@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
-import {Infobox} from "./ui/infobox";
+import {InfoBox} from "./ui/infoBox";
 import {ProductLine} from "./product/productline";
 import {MdFavorite, MdFavoriteBorder, MdMessage} from "react-icons/md";
 import {StyledInfoBoxIconButton} from "./ui/button";
@@ -88,7 +88,7 @@ export function ProductInfoBox() {
         setActiveProduct(nextProduct);
     }
 
-    return <Infobox isInfoBoxOpen={activeProduct != null}
+    return <InfoBox isInfoBoxOpen={activeProduct != null}
                     closeInfoBox={() => setActiveProduct(null)}
                     prevInfoBoxPage={prevActiveProduct}
                     nextInfoBoxPage={nextActiveProduct}>
@@ -103,5 +103,5 @@ export function ProductInfoBox() {
             </StyledButtonDiv>
         </ProductInfoBoxContent>
         }
-    </Infobox>
+    </InfoBox>
 }
