@@ -15,6 +15,7 @@ import {ActiveProductProvider} from "./contexts/activeproduct_context";
 import {FavoritesProvider} from "./contexts/favorites_context";
 import {FavoritesPage} from "./components/favoritespage";
 import {FLAT_PRODUCT_DATA} from "./utilities/flat_product_data";
+import {TablePage} from "./components/tablepage";
 
 function ProvidedApp() {
 
@@ -29,6 +30,8 @@ function ProvidedApp() {
                         <FavoritesPage/></Route>
                     <Route path={["/", "menucard", "menu"]}>
                         <MenuCardPage productsData={PRODUCTS_DATA}/></Route>
+                    <Route path={["/table/:tableNumberFromUrl"]}>
+                        <TablePage/></Route>
                 </Switch>
             </StyledOuterDiv>
         </HashRouter>

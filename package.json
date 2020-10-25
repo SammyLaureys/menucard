@@ -1,6 +1,6 @@
 {
   "name": "menucard",
-  "homepage": "https://verapeeters-thomasmore.github.io/menucard1",
+  "homepage": "https://sammylaureys.github.io/menucard",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -42,5 +42,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "devDependencies": {}
 }
