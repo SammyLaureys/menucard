@@ -18,8 +18,14 @@ else
 export const STATUS_NEW = "new";
 
 
-//returns a promise
-//when resolved, return value is a collection of orders
+/**
+ * collection of orders found in db with the specified statuses
+ * @param tableNumber
+ * @param statuses: array of statuses for which we want to find orders
+ *          (array of strings: use the consts from ../config/status.js)
+ * @returns a Promise. When resolved, return value is a collection of orders
+ * the promise is rejected when there is no db connection
+ */
 function getOrderListForTable(tableNumber, statuses) {
     if (!db) return new Promise((resolve, reject) => reject("no database"));
     return db.collection('orders')
@@ -58,3 +64,55 @@ export function streamOrder(orderListId, observer) {
         .doc(orderListId)
         .onSnapshot(observer);
 }
+
+/**
+ * create new orderList in the database for the given tableNumber
+ * @param tableNumber
+ * @returns a Promise. When resolved, return value is a collection of orders
+ * the promise is rejected when there is no db connection
+ */
+function createNewOrderList(tableNumber) {
+    if (!db) return new Promise((resolve, reject) => reject("no database"));
+    return db.collection('orders')
+        .add({
+            created: firebase.firestore.FieldValue.serverTimestamp(),
+            tableNumber: tableNumber,
+            orders: [],
+            totalPrice: 0,
+            status: STATUS_NEW
+        });
+}
+
+/**
+ * create
+ * @param tableNumber
+ * @returns ID of order for this table
+ * creates new orderlist with status NEW for this table.
+ */
+export async function createOrderListForTable(tableNumber) {
+    if (!db) return null;
+    if (!tableNumber) return null;
+
+    console.log(`creating order for table ${tableNumber}`);
+    const newOrder = await createNewOrderList(tableNumber);
+    console.log(`orderForTableFromDb for table ${tableNumber}: ${newOrder.id}`);
+    return newOrder.id;
+}
+
+/**
+ * updates orders in the database for the orderId
+ * @param orderId
+ * @param newOrders
+ * @returns a Promise. When resolved, return value is a collection of orders
+ * the promise is rejected when there is no db connection
+ */
+export async function updateOrdersForOrderList(orderId, newOrders) {
+    if (!db) return new Promise((resolve, reject) => reject("no database"));
+    const doc = db.collection('orders').doc(orderId);
+    await doc.update({
+        updated: firebase.firestore.FieldValue.serverTimestamp(),
+        orders: newOrders,
+    });
+    console.log(`updateOrdersForOrderList update done for ${orderId}`);
+}
+

@@ -1,9 +1,16 @@
-import React from "react";
-import {useParams} from "react-router-dom"
+import React, {useEffect} from "react";
+import {useParams} from 'react-router-dom';
+import {useOrderListContext} from "../contexts/orderlist_context";
+import {OrderListPage} from "./orderlistpage";
 
-export function TablePage(){
+export function TablePage() {
     const {tableNumberFromUrl} = useParams();
-    return <div>
-        Welkom bij tafel {tableNumberFromUrl}!!
-    </div>
+    const {setTableNumber} = useOrderListContext();
+
+    useEffect(() => {
+        setTableNumber(tableNumberFromUrl);
+    }, [tableNumberFromUrl, setTableNumber]);
+
+    return <OrderListPage/>;
 }
+

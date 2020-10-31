@@ -2,7 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 import {Link} from "react-router-dom";
 import {HashLink} from "react-router-hash-link";
-import {MdFavorite} from "react-icons/md";
+import {MdFavorite, MdShoppingCart} from "react-icons/md";
 import {StyledMenuIconButton} from "./ui/button";
 import {BurgerWithMenu} from "./ui/burgermenu";
 
@@ -39,6 +39,10 @@ const StyledSideBarContent = styled.div`
     padding: 15px 0;
 `;
 
+const StyledButtonDiv = styled.div`
+    flex: 1;
+    text-align: right;
+`;
 
 export function Navigation(props) {
     const {categories} = props;
@@ -55,6 +59,9 @@ export function Navigation(props) {
                 <Link to="/">Menu</Link>
             </StyledLink>
         </StyledCenterDiv>
-        <Link to="/favorites"><StyledMenuIconButton><MdFavorite/></StyledMenuIconButton></Link>
+        <StyledButtonDiv>
+            <Link to="/favorites"><StyledMenuIconButton><MdFavorite/></StyledMenuIconButton></Link>
+            <Link to="/ordered"><StyledMenuIconButton><MdShoppingCart/></StyledMenuIconButton></Link>
+        </StyledButtonDiv>
     </StyledNavigation>;
 }

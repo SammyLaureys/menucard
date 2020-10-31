@@ -89,7 +89,7 @@ export function InfoBox(props) {
             <Swipeable
                 style={{display: 'flex', flex: 1, height: '100%'}}
                 onSwipedRight={prevPageWithTransition}
-                onSwipedLeft={nextPageWithTransition} preventDefaultTouchmoveEvent={true}>
+                onSwipedLeft={nextPageWithTransition} preventDefaultTouchmoveEvent={true} >
                 <StyledInfoBoxContent goingToPrevPage={goingToPrevPage}
                                       goingToNextPage={goingToNextPage}
                                       onTransitionEnd={() => pageTransitionEnded()}>

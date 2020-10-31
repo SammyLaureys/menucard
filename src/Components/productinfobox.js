@@ -1,12 +1,13 @@
 import React from "react";
 import styled from "@emotion/styled";
-import {InfoBox} from "./ui/infoBox";
+import {InfoBox} from "./ui/infobox";
 import {ProductLine} from "./product/productline";
-import {MdFavorite, MdFavoriteBorder, MdMessage} from "react-icons/md";
+import {MdFavorite, MdFavoriteBorder, MdMessage, MdAddShoppingCart} from "react-icons/md";
 import {StyledInfoBoxIconButton} from "./ui/button";
 import {useMessageContext} from "../contexts/message_context";
 import {useActiveProductContext} from "../contexts/activeproduct_context";
 import {useFavoritesContext} from "../contexts/favorites_context";
+import {useOrderListContext} from "../contexts/orderlist_context";
 
 const ProductInfoBoxContent = styled.div`
   position:relative;  
@@ -54,6 +55,16 @@ function MessageButton() {
         onClick={() => setMessage(`dit is een message over ${activeProduct.name}!`)}>
         <MdMessage/>
     </StyledInfoBoxIconButton>;
+}
+
+
+function OrderButton() {
+    const {activeProduct} = useActiveProductContext();
+    const {incrementProductInOrderList} = useOrderListContext();
+    return <StyledInfoBoxIconButton
+        onClick={() => incrementProductInOrderList(activeProduct)}>
+        <MdAddShoppingCart/>
+    </StyledInfoBoxIconButton>;
 
 }
 
@@ -98,6 +109,7 @@ export function ProductInfoBox() {
             <Brewery/>
             <ProductInfo/>
             <StyledButtonDiv>
+                <OrderButton/>
                 <MessageButton/>
                 <FavoriteButton/>
             </StyledButtonDiv>

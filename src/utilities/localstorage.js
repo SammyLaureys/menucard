@@ -19,7 +19,6 @@ export function useLocalStorage(key, initialValue,
     }, [setValueInState, convertToLocalStorage, key]);
 
     useEffect(() => {
-        console.log("useEffect");
         const listener = (e) =>
             (e.key === key) && setValueInState(readFromLocalStorage());
         window.addEventListener('storage', listener);
